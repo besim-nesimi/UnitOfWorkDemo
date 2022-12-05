@@ -72,5 +72,51 @@
             Margin="2"
             Name="btnAddRank" Click="btnAddRank_Click"
             />
+
+        <Label
+            Content="Add Crew Member"
+            Grid.ColumnSpan="4"
+            Grid.Column="3"
+            Grid.Row="2"
+            FontSize="20"
+            FontWeight="Bold"
+            FontFamily="Arial"
+            />
+        <Label Grid.Column="3"
+               Grid.Row="3"
+               Content="First name: "
+               FontSize="20"
+               FontWeight="Bold"
+               FontFamily="Arial"
+               />
+        <Label
+            Grid.Column="3"
+            Grid.Row="4"
+            Content="Lastname: "
+            FontSize="20"
+            FontWeight="Bold"
+            FontFamily="Arial"
+            />
+        <TextBox
+            Grid.Column="4"
+            Grid.Row="3"
+            Width="100"
+            Margin="2"
+            Name="txtCrewFirstName"
+            />
+        <TextBox
+            Grid.Column="4"
+            Grid.Row="4"
+            Width="100"
+            Margin="2"
+            Name="txtCrewLastName"
+            />
+        <Button
+            Content="Add Rank"
+            Grid.Column="4"
+            Grid.Row="5"
+            Margin="2"
+            Name="btnAddCrewMember"
+            />
     </Grid>
 </Window>

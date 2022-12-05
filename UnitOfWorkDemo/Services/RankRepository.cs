@@ -19,7 +19,7 @@ internal class RankRepository
 
     // Get all
 
-    public List<Rank> GetRank()
+    public List<Rank> GetRanks()
     {
         return _context.Rank.ToList();
     }
@@ -36,6 +36,11 @@ internal class RankRepository
     public void AddRank(Rank rankToAdd)
     {
         _context.Rank.Add(rankToAdd);
+    }
+
+    public async Task AddRankAsync(Rank rankToAdd)
+    {
+        await _context.Rank.AddAsync(rankToAdd);
     }
 
     // Update
