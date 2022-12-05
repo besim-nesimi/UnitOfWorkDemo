@@ -34,33 +34,9 @@ namespace UnitOfWorkDemo
             txtRankTitle.Clear();
         }
 
+        // Add rank with repo pattern ( unit of work in action )
         private async void btnAddRank_Click(object sender, RoutedEventArgs e)
         {
-
-            string rankTitle = txtRankTitle.Text;
-            bool success = int.TryParse(txtRankGrade.Text, out int rankGrade); // if sats behövs här.
-
-            if (success)
-            {
-                using (AppDbContext context = new())
-                {
-                    await new RankRepository(context).AddRankAsync(new Rank()
-                    {
-                    Title = rankTitle,
-                    Grade = rankGrade
-                    });
-
-                    await context.SaveChangesAsync();
-                }
-
-                ClearUi();
-            }
-            else
-            {
-                MessageBox.Show("Warning");
-            }
-
-
         }
     }
 }
