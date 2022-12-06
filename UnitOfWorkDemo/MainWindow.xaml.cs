@@ -32,11 +32,68 @@ namespace UnitOfWorkDemo
         {
             txtRankGrade.Clear();
             txtRankTitle.Clear();
+            txtCrewFirstName.Clear();
+            txtCrewLastName.Clear();
         }
 
-        // Add rank with repo pattern ( unit of work in action )
+        // Add rank with repo pattern
         private async void btnAddRank_Click(object sender, RoutedEventArgs e)
         {
+
+            string rankTitle = txtRankTitle.Text;
+            bool success = int.TryParse(txtRankGrade.Text, out int rankGrade); // if sats behövs här.
+
+            if (success)
+            {
+                using (AppDbContext context = new())
+                {
+                    await new RankRepository(context).AddRankAsync(new Rank()
+                    {
+                    Title = rankTitle,
+                    Grade = rankGrade
+                    });
+
+                    await context.SaveChangesAsync();
+                }
+
+                ClearUi();
+            }
+            else
+            {
+                MessageBox.Show("Warning");
+            }
+
+
+        }
+
+        // Add crew member with unit of work pattern ( unit of work in action )
+
+        private void btnAddCrewMember_Click(object sender, RoutedEventArgs e)
+        {
+            string firstName = txtCrewFirstName.Text;
+            string lastName = txtCrewLastName.Text;
+
+            using(AppDbContext context = new()) // alltid skapar vi ett kontext
+            {
+                UnitOfWork uow = new(context); // Behöver instansiera unitofwork för att den ska finnas / funka
+
+                Rank? privateRank = uow.RankRepo.GetRankByTitle("Private"); // kan returna null, så vi lägger ? efter Rank objekt.
+
+                if (privateRank != null) // null check, vi kör nedan om privateRank inte är null.
+                {
+                    uow.CrewRepo.AddCrew(new Crew() // AddCrew metoden tar emot ett objekt med en "crew" variabel som är själva medlemmen. Vår crew medlem har First & Last + Rank som ej får vara null.
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        Rank = privateRank // Eftersom ranken finns i Rank Modellen och Rank Repon, hämtar vi GetRankByTitle o.s.v.
+                    });
+                }
+
+                uow.SaveChanges(); // Sparar ändringarna i vår kontext.
+                ClearUi();
+            }
+
+            
         }
     }
 }

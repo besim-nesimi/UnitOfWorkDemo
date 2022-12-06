@@ -28,7 +28,12 @@ internal class RankRepository
 
     public Rank? GetRank(int id)
     {
-        return _context.Rank.FirstOrDefault(c => c.RankId == id);
+        return _context.Rank.FirstOrDefault(r => r.RankId == id);
+    }
+
+    public Rank? GetRankByTitle(string title)
+    {
+        return _context.Rank.FirstOrDefault(r => r.Title == title);
     }
 
     // Create

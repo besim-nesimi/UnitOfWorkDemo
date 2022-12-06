@@ -112,11 +112,11 @@
             Name="txtCrewLastName"
             />
         <Button
-            Content="Add Rank"
+            Content="Add Crew member"
             Grid.Column="4"
             Grid.Row="5"
             Margin="2"
-            Name="btnAddCrewMember"
+            Name="btnAddCrewMember" Click="btnAddCrewMember_Click"
             />
     </Grid>
 </Window>
